@@ -1,6 +1,6 @@
 // login.js
 
-const API_AUTH = 'http://libreria-production-8cc8.up.railway.app';
+const API_AUTH = 'https://libreria-production-8cc8.up.railway.app';
 
 // Si ya hay token válido, saltar directo al panel
 if (getToken()) {
