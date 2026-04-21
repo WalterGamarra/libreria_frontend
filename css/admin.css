@@ -1,0 +1,469 @@
+/* ═══════════════════════════════════════════════════════
+   VARIABLES GLOBALES
+   Define los colores, fuentes y medidas del panel.
+   Cambiando estas variables cambia todo el diseño.
+═══════════════════════════════════════════════════════ */
+:root {
+  --bg: #f5f3ee;           /* fondo general de la página */
+  --surface: #ffffff;      /* fondo de tarjetas, tablas, modal */
+  --border: #e2ded6;       /* color de bordes y separadores */
+  --text: #1a1814;         /* texto principal */
+  --text-muted: #7a7568;   /* texto secundario / placeholders */
+  --accent: #c84b2f;       /* color de acento (rojo ladrillo) */
+  --accent-light: #fdf0ec; /* versión clara del acento */
+  --accent-hover: #a83820; /* acento más oscuro para hover */
+  --green: #2d7a4f;        /* color para mensajes de éxito */
+  --sidebar-w: 220px;      /* ancho de la barra lateral */
+  --radius: 8px;           /* redondeo de bordes */
+  --mono: 'DM Mono', monospace;   /* fuente para IDs y etiquetas */
+  --sans: 'DM Sans', sans-serif;  /* fuente para el texto general */
+}
+
+/* ── RESET BÁSICO ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex; /* sidebar y main lado a lado */
+}
+
+/* ═══════════════════════════════════════════════════════
+   SIDEBAR
+   Barra lateral fija. Contiene el logo y la navegación.
+═══════════════════════════════════════════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--text); /* fondo oscuro */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: fixed;         /* queda fija al hacer scroll */
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+}
+
+.sidebar-logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid #333;
+}
+
+.sidebar-logo span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #888;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sidebar-logo h1 { font-size: 18px; font-weight: 600; }
+.sidebar-logo h1 em { color: var(--accent); font-style: normal; }
+
+.sidebar-nav { padding: 16px 0; flex: 1; }
+
+/* Etiquetas de sección dentro del nav (ej: "CATÁLOGO") */
+.nav-section {
+  padding: 8px 20px 4px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #555;
+}
+
+/* Cada ítem del menú lateral */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #aaa;
+  transition: all 0.15s;
+  border-left: 3px solid transparent; /* borde izquierdo oculto por defecto */
+}
+
+.nav-item:hover { color: #fff; background: #222; }
+
+/* Ítem activo: borde izquierdo rojo + fondo oscuro */
+.nav-item.active {
+  color: #fff;
+  background: #222;
+  border-left-color: var(--accent);
+}
+
+.nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #333;
+  font-size: 12px;
+  color: #555;
+  font-family: var(--mono);
+}
+
+/* ═══════════════════════════════════════════════════════
+   MAIN — Área de contenido principal
+   Ocupa el espacio restante al lado del sidebar
+═══════════════════════════════════════════════════════ */
+.main {
+  margin-left: var(--sidebar-w); /* empuja el contenido para no quedar tapado */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Barra superior pegada al tope */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar-title { font-size: 15px; font-weight: 600; }
+
+/* Muestra la URL base de la API */
+.topbar-api {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.content { padding: 32px; flex: 1; }
+
+/* ═══════════════════════════════════════════════════════
+   VISTAS
+   Solo la vista activa se muestra (display: block).
+   admin.js alterna la clase 'active'
+═══════════════════════════════════════════════════════ */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ═══════════════════════════════════════════════════════
+   DASHBOARD — Tarjetas de estadísticas
+═══════════════════════════════════════════════════════ */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.stat-card .label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.stat-card .value {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+
+.stat-card .icon-big { font-size: 24px; float: right; margin-top: -4px; }
+
+/* Nota informativa del dashboard */
+.dashboard-note {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.dashboard-note strong { color: var(--text); }
+
+.order-list {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-list li { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+
+.order-badge {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ENCABEZADO DE SECCIÓN
+   Título de la sección + botón de crear
+═══════════════════════════════════════════════════════ */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.section-header h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+
+/* ═══════════════════════════════════════════════════════
+   BOTONES
+   .btn es la base. Se combina con modificadores:
+   .btn-primary → rojo (acción principal)
+   .btn-secondary → gris (acción secundaria)
+   .btn-danger → rojo claro (eliminar)
+   .btn-sm → tamaño pequeño
+═══════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  font-family: var(--sans);
+}
+
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { background: var(--bg); }
+
+.btn-danger { background: #fff0ee; color: var(--accent); border: 1px solid #f5cdc5; }
+.btn-danger:hover { background: #ffe0da; }
+
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+
+/* ═══════════════════════════════════════════════════════
+   TABLA
+   Contenedor con borde redondeado + tabla dentro
+═══════════════════════════════════════════════════════ */
+.table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+
+/* Encabezados en mayúsculas con fuente monoespaciada */
+thead th {
+  background: var(--bg);
+  padding: 11px 16px;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--bg); }
+
+tbody td { padding: 12px 16px; vertical-align: middle; }
+
+/* Badge para mostrar el ID con estilo monoespaciado */
+.id-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--bg);
+  padding: 2px 7px;
+  border-radius: 4px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* Contenedor de botones editar/eliminar */
+.actions { display: flex; gap: 6px; }
+
+/* Estado vacío cuando no hay datos */
+.empty-state {
+  text-align: center;
+  padding: 48px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.empty-state .empty-icon { font-size: 32px; margin-bottom: 10px; }
+
+/* ═══════════════════════════════════════════════════════
+   MODAL
+   Ventana emergente para crear/editar registros.
+   .modal-overlay cubre toda la pantalla con fondo oscuro.
+   .open la hace visible (toggle desde admin.js)
+═══════════════════════════════════════════════════════ */
+.modal-overlay {
+  display: none;           /* oculto por defecto */
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4); /* fondo semitransparente */
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.open { display: flex; } /* admin.js agrega esta clase */
+
+.modal {
+  background: var(--surface);
+  border-radius: 12px;
+  width: 480px;
+  max-width: 95vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.modal-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h3 { font-size: 16px; font-weight: 600; }
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+/* admin.js inyecta los campos del formulario acá */
+.modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FORMULARIOS dentro del modal
+═══════════════════════════════════════════════════════ */
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: var(--sans);
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.15s;
+  outline: none;
+}
+
+/* Borde rojo al hacer foco en un campo */
+.form-group input:focus,
+.form-group select:focus { border-color: var(--accent); }
+
+/* ═══════════════════════════════════════════════════════
+   TOASTS — Notificaciones temporales
+   Aparecen abajo a la derecha y desaparecen solos.
+   .success → verde, .error → rojo
+═══════════════════════════════════════════════════════ */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  background: var(--text);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideIn 0.2s ease;
+  max-width: 300px;
+}
+
+.toast.success { background: var(--green); }
+.toast.error   { background: var(--accent); }
+
+@keyframes slideIn {
+  from { transform: translateX(20px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   LOADER — Spinner de carga
+   Aparece en la tabla mientras se espera la respuesta
+═══════════════════════════════════════════════════════ */
+.loader {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
