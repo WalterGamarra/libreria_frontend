@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Tienda Librería</title>
+  <link rel="stylesheet" href="css/tienda.css">
 </head>
 <body>
 
-<script>
-  window.location.href = "login.html";
-</script>
+  <header>
+    <h1>Librería Online</h1>
+  </header>
 
+  <main>
+    <!-- LISTADO -->
+    <section id="listado-libros" class="grid"></section>
+
+    <!-- DETALLE -->
+    <section id="detalle-libro" class="detalle hidden"></section>
+  </main>
+
+  <script src="js/tienda.js"></script>
 </body>
 </html>
