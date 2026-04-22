@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════
 // CONFIG — URL base de la API
 // ═══════════════════════════════════════════════════════
-const API = 'https://libreria-production-8cc8.up.railway.app/api/v1/tienda/admin';
+const API = 'https://libreria-production-8cc8.up.railway.app/api/v1/tienda/libros';
 
 // ═══════════════════════════════════════════════════════
 // ESTADO GLOBAL
