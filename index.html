@@ -2,22 +2,95 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Tienda Librería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Librería Online</title>
   <link rel="stylesheet" href="css/tienda.css">
 </head>
 <body>
 
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- DRAWER (MENÚ LATERAL) -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <span class="drawer-logo">
+        <span class="logo-tu" style="font-size:0.6rem; letter-spacing:2px; color:rgba(255,255,255,0.4);">TU</span>
+        <span style="font-family:'Playfair Display',serif; color:var(--accent);">Librería</span>
+      </span>
+      <button class="drawer-close" id="drawer-close">✕</button>
+    </div>
+
+    <div class="drawer-section">
+      <h3>Autores</h3>
+      <div id="filtros-autores"></div>
+    </div>
+
+    <div class="drawer-section">
+      <h3>Géneros</h3>
+      <div id="filtros-categorias"></div>
+    </div>
+
+    <div class="drawer-section">
+      <h3>Editoriales</h3>
+      <div id="filtros-editoriales"></div>
+    </div>
+  </div>
+  
+  <!-- HEADER -->
+
   <header>
-    <h1>Librería Online</h1>
+    <div class="header-inner">
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+
+      <span class="logo">
+  <span class="logo-tu">TU</span>
+  <span class="logo-nombre">Librería</span>
+</span>
+
+      <div class="search-bar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="Buscar por título...">
+      </div>
+    </div>
   </header>
 
+  <!-- HERO -->
+  <div class="hero-strip">
+    <h2>Explorá nuestro <span>catálogo</span></h2>
+    <p>Encontrá tu próxima lectura entre nuestros títulos seleccionados</p>
+  </div>
+
+  <!-- FILTROS ACTIVOS -->
+  <div class="active-filters" id="active-filters"></div>
+
+  <!-- MAIN -->
   <main>
+
     <!-- LISTADO -->
-    <section id="listado-libros" class="grid"></section>
+    <div id="listado-wrapper">
+      <div class="results-bar">
+        <span class="results-count" id="results-count"></span>
+      </div>
+      <div class="grid-wrapper">
+        <section id="listado-libros" class="grid"></section>
+      </div>
+    </div>
 
     <!-- DETALLE -->
-    <section id="detalle-libro" class="detalle hidden"></section>
+    <section id="detalle-libro" class="hidden"></section>
+
   </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-copy">© 2026 <span>La Librería</span>. Todos los derechos reservados.</p>
+    <a href="login.html">Acceso administrativo</a>
+  </footer>
 
   <script src="js/tienda.js"></script>
 </body>
