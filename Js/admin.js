@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════
-// CONFIG — URL base de la API
+// CONFIG — URLs base
 // ═══════════════════════════════════════════════════════
-const API = 'https://libreria-production-8cc8.up.railway.app/api/v1/tienda/libros';
+const API_ADMIN = "https://libreria-production-8cc8.up.railway.app/api/v1/tienda/admin";
 
 // ═══════════════════════════════════════════════════════
 // ESTADO GLOBAL
@@ -40,20 +40,20 @@ function showView(view, navItem) {
     };
     document.getElementById('topbar-title').textContent = titles[view];
 
-    if (view === 'dashboard') loadDashboard();
-    if (view === 'autores') loadAutores();
-    if (view === 'categorias') loadCategorias();
+    if (view === 'dashboard')   loadDashboard();
+    if (view === 'autores')     loadAutores();
+    if (view === 'categorias')  loadCategorias();
     if (view === 'editoriales') loadEditoriales();
-    if (view === 'libros') loadLibros();
+    if (view === 'libros')      loadLibros();
 }
 
 // ═══════════════════════════════════════════════════════
-// API CENTRAL
+// API — todas las rutas admin (requieren token JWT)
 // ═══════════════════════════════════════════════════════
 async function apiFetch(path, options = {}) {
     const token = getToken();
 
-    const res = await fetch(API + path, {
+    const res = await fetch(API_ADMIN + path, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -83,9 +83,9 @@ async function loadDashboard() {
             apiFetch('/editorial')
         ]);
 
-        document.getElementById('stat-libros').textContent = libros.length;
-        document.getElementById('stat-autores').textContent = autores.length;
-        document.getElementById('stat-categorias').textContent = categorias.length;
+        document.getElementById('stat-libros').textContent      = libros.length;
+        document.getElementById('stat-autores').textContent     = autores.length;
+        document.getElementById('stat-categorias').textContent  = categorias.length;
         document.getElementById('stat-editoriales').textContent = editoriales.length;
 
     } catch (e) {
@@ -308,7 +308,7 @@ async function saveModal() {
     try {
         if (modalEntity === 'autor') {
             body = {
-                nombre: document.getElementById('f-nombre').value,
+                nombre:   document.getElementById('f-nombre').value,
                 apellido: document.getElementById('f-apellido').value
             };
             await apiFetch(isEdit ? `/autor/${editingId}` : '/autor', {
@@ -338,12 +338,12 @@ async function saveModal() {
 
         if (modalEntity === 'libros') {
             body = {
-                titulo: document.getElementById('f-titulo').value,
+                titulo:      document.getElementById('f-titulo').value,
                 anioEdicion: parseInt(document.getElementById('f-anioEdicion').value),
-                image: document.getElementById('f-image').value,
-                autor: { idAutor: parseInt(document.getElementById('f-autor').value) },
-                categoria: { idCategoria: parseInt(document.getElementById('f-categoria').value) },
-                editorial: { idEditorial: parseInt(document.getElementById('f-editorial').value) }
+                image:       document.getElementById('f-image').value,
+                autor:       { idAutor:     parseInt(document.getElementById('f-autor').value) },
+                categoria:   { idCategoria: parseInt(document.getElementById('f-categoria').value) },
+                editorial:   { idEditorial: parseInt(document.getElementById('f-editorial').value) }
             };
             await apiFetch(isEdit ? `/libros/${editingId}` : '/libros', {
                 method: isEdit ? 'PUT' : 'POST',

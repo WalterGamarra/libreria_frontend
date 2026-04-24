@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════
-const API_URL = "https://libreria-production-8cc8.up.railway.app/api/v1/tienda/libros";
+const API_PUBLIC = "https://libreria-production-8cc8.up.railway.app/api/v1/tienda";
 
 // ═══════════════════════════════════════════
 // ESTADO
@@ -58,7 +58,6 @@ drawerOverlay.addEventListener('click', cerrarDrawer);
 // FILTROS
 // ═══════════════════════════════════════════
 function aplicarFiltro(tipo, valor, btn) {
-  // Si ya estaba activo, lo desactiva
   if (filtroActivo && filtroActivo.tipo === tipo && filtroActivo.valor === valor) {
     filtroActivo = null;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -67,7 +66,6 @@ function aplicarFiltro(tipo, valor, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
-
   cerrarDrawer();
   renderLibros();
   actualizarFiltroTag();
@@ -161,7 +159,7 @@ function renderLibros() {
   listado.innerHTML = libros.map((libro, i) => `
     <div class="card" style="animation-delay: ${i * 0.05}s" onclick="verDetalle(${libro.id})">
       <div class="card-img-wrap">
-        <img src="${getImagen(libro.isbn)}" 
+        <img src="${getImagen(libro.isbn)}"
              alt="${libro.titulo}"
              onerror="manejarErrorImagen(this)">
       </div>
@@ -189,7 +187,7 @@ async function cargarLibros() {
   `;
 
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(`${API_PUBLIC}/libros`);
     todosLosLibros = await res.json();
     poblarDrawer();
     renderLibros();
@@ -217,7 +215,7 @@ async function verDetalle(id) {
   `;
 
   try {
-    const res = await fetch(`${API_URL}/${id}`);
+    const res = await fetch(`${API_PUBLIC}/libros/${id}`);
     const libro = await res.json();
 
     detalle.innerHTML = `
@@ -225,7 +223,7 @@ async function verDetalle(id) {
         <div class="detalle">
           <div class="detalle-inner">
             <div class="detalle-img-wrap">
-              <img src="${getImagen(libro.isbn)}" 
+              <img src="${getImagen(libro.isbn)}"
                    alt="${libro.titulo}"
                    onerror="manejarErrorImagen(this)">
             </div>
