@@ -4,30 +4,48 @@
    Cambiando estas variables cambia todo el diseño.
 ═══════════════════════════════════════════════════════ */
 :root {
-  --bg: #f5f3ee;           /* fondo general de la página */
-  --surface: #ffffff;      /* fondo de tarjetas, tablas, modal */
-  --border: #e2ded6;       /* color de bordes y separadores */
-  --text: #1a1814;         /* texto principal */
-  --text-muted: #7a7568;   /* texto secundario / placeholders */
-  --accent: #c84b2f;       /* color de acento (rojo ladrillo) */
-  --accent-light: #fdf0ec; /* versión clara del acento */
-  --accent-hover: #a83820; /* acento más oscuro para hover */
-  --green: #2d7a4f;        /* color para mensajes de éxito */
-  --sidebar-w: 220px;      /* ancho de la barra lateral */
-  --radius: 8px;           /* redondeo de bordes */
-  --mono: 'DM Mono', monospace;   /* fuente para IDs y etiquetas */
-  --sans: 'DM Sans', sans-serif;  /* fuente para el texto general */
+  --bg: #f5f3ee;
+  /* fondo general de la página */
+  --surface: #ffffff;
+  /* fondo de tarjetas, tablas, modal */
+  --border: #e2ded6;
+  /* color de bordes y separadores */
+  --text: #1a1814;
+  /* texto principal */
+  --text-muted: #7a7568;
+  /* texto secundario / placeholders */
+  --accent: #c84b2f;
+  /* color de acento (rojo ladrillo) */
+  --accent-light: #fdf0ec;
+  /* versión clara del acento */
+  --accent-hover: #a83820;
+  /* acento más oscuro para hover */
+  --green: #2d7a4f;
+  /* color para mensajes de éxito */
+  --sidebar-w: 220px;
+  /* ancho de la barra lateral */
+  --radius: 8px;
+  /* redondeo de bordes */
+  --mono: 'DM Mono', monospace;
+  /* fuente para IDs y etiquetas */
+  --sans: 'DM Sans', sans-serif;
+  /* fuente para el texto general */
 }
 
 /* ── RESET BÁSICO ── */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: var(--sans);
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  display: flex; /* sidebar y main lado a lado */
+  display: flex;
+  /* sidebar y main lado a lado */
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -36,12 +54,16 @@ body {
 ═══════════════════════════════════════════════════════ */
 .sidebar {
   width: var(--sidebar-w);
-  background: var(--text); /* fondo oscuro */
+  background: var(--text);
+  /* fondo oscuro */
   color: #fff;
   display: flex;
   flex-direction: column;
-  position: fixed;         /* queda fija al hacer scroll */
-  top: 0; left: 0; bottom: 0;
+  position: fixed;
+  /* queda fija al hacer scroll */
+  top: 0;
+  left: 0;
+  bottom: 0;
   z-index: 100;
 }
 
@@ -60,10 +82,20 @@ body {
   margin-bottom: 4px;
 }
 
-.sidebar-logo h1 { font-size: 18px; font-weight: 600; }
-.sidebar-logo h1 em { color: var(--accent); font-style: normal; }
+.sidebar-logo h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
 
-.sidebar-nav { padding: 16px 0; flex: 1; }
+.sidebar-logo h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.sidebar-nav {
+  padding: 16px 0;
+  flex: 1;
+}
 
 /* Etiquetas de sección dentro del nav (ej: "CATÁLOGO") */
 .nav-section {
@@ -85,10 +117,14 @@ body {
   font-size: 14px;
   color: #aaa;
   transition: all 0.15s;
-  border-left: 3px solid transparent; /* borde izquierdo oculto por defecto */
+  border-left: 3px solid transparent;
+  /* borde izquierdo oculto por defecto */
 }
 
-.nav-item:hover { color: #fff; background: #222; }
+.nav-item:hover {
+  color: #fff;
+  background: #222;
+}
 
 /* Ítem activo: borde izquierdo rojo + fondo oscuro */
 .nav-item.active {
@@ -97,7 +133,11 @@ body {
   border-left-color: var(--accent);
 }
 
-.nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+.nav-item .icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
 
 .sidebar-footer {
   padding: 16px 20px;
@@ -112,7 +152,8 @@ body {
    Ocupa el espacio restante al lado del sidebar
 ═══════════════════════════════════════════════════════ */
 .main {
-  margin-left: var(--sidebar-w); /* empuja el contenido para no quedar tapado */
+  margin-left: var(--sidebar-w);
+  /* empuja el contenido para no quedar tapado */
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -133,7 +174,10 @@ body {
   z-index: 50;
 }
 
-.topbar-title { font-size: 15px; font-weight: 600; }
+.topbar-title {
+  font-size: 15px;
+  font-weight: 600;
+}
 
 /* Muestra la URL base de la API */
 .topbar-api {
@@ -146,22 +190,31 @@ body {
   border: 1px solid var(--border);
 }
 
-.content { padding: 32px; flex: 1; }
+.content {
+  padding: 32px;
+  flex: 1;
+}
 
 /* ═══════════════════════════════════════════════════════
    VISTAS
    Solo la vista activa se muestra (display: block).
    admin.js alterna la clase 'active'
 ═══════════════════════════════════════════════════════ */
-.view { display: none; }
-.view.active { display: block; }
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
 
 /* ═══════════════════════════════════════════════════════
    DASHBOARD — Tarjetas de estadísticas
 ═══════════════════════════════════════════════════════ */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 columnas iguales */
   gap: 16px;
   margin-bottom: 32px;
 }
@@ -188,7 +241,11 @@ body {
   letter-spacing: -1px;
 }
 
-.stat-card .icon-big { font-size: 24px; float: right; margin-top: -4px; }
+.stat-card .icon-big {
+  font-size: 24px;
+  float: right;
+  margin-top: -4px;
+}
 
 /* Nota informativa del dashboard */
 .dashboard-note {
@@ -201,7 +258,9 @@ body {
   line-height: 1.7;
 }
 
-.dashboard-note strong { color: var(--text); }
+.dashboard-note strong {
+  color: var(--text);
+}
 
 .order-list {
   list-style: none;
@@ -211,7 +270,12 @@ body {
   gap: 8px;
 }
 
-.order-list li { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.order-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
 
 .order-badge {
   background: var(--accent);
@@ -233,7 +297,11 @@ body {
   margin-bottom: 20px;
 }
 
-.section-header h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
 
 /* ═══════════════════════════════════════════════════════
    BOTONES
@@ -257,20 +325,39 @@ body {
   font-family: var(--sans);
 }
 
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { background: var(--accent-hover); }
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
 
 .btn-secondary {
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
 }
-.btn-secondary:hover { background: var(--bg); }
 
-.btn-danger { background: #fff0ee; color: var(--accent); border: 1px solid #f5cdc5; }
-.btn-danger:hover { background: #ffe0da; }
+.btn-secondary:hover {
+  background: var(--bg);
+}
 
-.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn-danger {
+  background: #fff0ee;
+  color: var(--accent);
+  border: 1px solid #f5cdc5;
+}
+
+.btn-danger:hover {
+  background: #ffe0da;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
 
 /* ═══════════════════════════════════════════════════════
    TABLA
@@ -283,7 +370,11 @@ body {
   overflow: hidden;
 }
 
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
 
 /* Encabezados en mayúsculas con fuente monoespaciada */
 thead th {
@@ -303,10 +394,19 @@ tbody tr {
   border-bottom: 1px solid var(--border);
   transition: background 0.1s;
 }
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: var(--bg); }
 
-tbody td { padding: 12px 16px; vertical-align: middle; }
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: var(--bg);
+}
+
+tbody td {
+  padding: 12px 16px;
+  vertical-align: middle;
+}
 
 /* Badge para mostrar el ID con estilo monoespaciado */
 .id-badge {
@@ -320,7 +420,10 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
 }
 
 /* Contenedor de botones editar/eliminar */
-.actions { display: flex; gap: 6px; }
+.actions {
+  display: flex;
+  gap: 6px;
+}
 
 /* Estado vacío cuando no hay datos */
 .empty-state {
@@ -329,7 +432,11 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
   color: var(--text-muted);
   font-size: 14px;
 }
-.empty-state .empty-icon { font-size: 32px; margin-bottom: 10px; }
+
+.empty-state .empty-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
 
 /* ═══════════════════════════════════════════════════════
    MODAL
@@ -338,23 +445,33 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
    .open la hace visible (toggle desde admin.js)
 ═══════════════════════════════════════════════════════ */
 .modal-overlay {
-  display: none;           /* oculto por defecto */
+  display: none;
+  /* oculto por defecto */
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4); /* fondo semitransparente */
+  background: rgba(0, 0, 0, 0.4);
+  /* fondo semitransparente */
   z-index: 200;
   align-items: center;
   justify-content: center;
 }
 
-.modal-overlay.open { display: flex; } /* admin.js agrega esta clase */
+.modal-overlay.open {
+  display: flex;
+}
+
+/* admin.js agrega esta clase */
 
 .modal {
   background: var(--surface);
   border-radius: 12px;
-  width: 480px;
+  width: 520px;
   max-width: 95vw;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  max-height: 90vh;
+  /* ← límite de altura */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-header {
@@ -365,7 +482,10 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
   justify-content: space-between;
 }
 
-.modal-header h3 { font-size: 16px; font-weight: 600; }
+.modal-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
 
 .modal-close {
   background: none;
@@ -375,8 +495,15 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
   color: var(--text-muted);
 }
 
-/* admin.js inyecta los campos del formulario acá */
-.modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  /* ← scroll interno */
+  flex: 1;
+}
 
 .modal-footer {
   padding: 16px 24px;
@@ -389,7 +516,11 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
 /* ═══════════════════════════════════════════════════════
    FORMULARIOS dentro del modal
 ═══════════════════════════════════════════════════════ */
-.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
 .form-group label {
   font-size: 12px;
@@ -415,7 +546,9 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
 
 /* Borde rojo al hacer foco en un campo */
 .form-group input:focus,
-.form-group select:focus { border-color: var(--accent); }
+.form-group select:focus {
+  border-color: var(--accent);
+}
 
 /* ═══════════════════════════════════════════════════════
    TOASTS — Notificaciones temporales
@@ -445,12 +578,24 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
   max-width: 300px;
 }
 
-.toast.success { background: var(--green); }
-.toast.error   { background: var(--accent); }
+.toast.success {
+  background: var(--green);
+}
+
+.toast.error {
+  background: var(--accent);
+}
 
 @keyframes slideIn {
-  from { transform: translateX(20px); opacity: 0; }
-  to   { transform: translateX(0);    opacity: 1; }
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -459,11 +604,16 @@ tbody td { padding: 12px 16px; vertical-align: middle; }
 ═══════════════════════════════════════════════════════ */
 .loader {
   display: inline-block;
-  width: 16px; height: 16px;
+  width: 16px;
+  height: 16px;
   border: 2px solid var(--border);
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

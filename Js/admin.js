@@ -272,35 +272,98 @@ function closeModal() {
 // ═══════════════════════════════════════════════════════
 // FORM BUILDER
 // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// FORM BUILDER — libros corregido
+// ═══════════════════════════════════════════
 function buildForm(entity, data) {
     if (entity === 'autor') {
         return `
-            <input id="f-nombre"   placeholder="Nombre"   value="${data?.nombre || ''}">
-            <input id="f-apellido" placeholder="Apellido" value="${data?.apellido || ''}">`;
+            <div class="form-group">
+                <label>Nombre</label>
+                <input id="f-nombre" placeholder="Nombre" value="${data?.nombre || ''}">
+            </div>
+            <div class="form-group">
+                <label>Apellido</label>
+                <input id="f-apellido" placeholder="Apellido" value="${data?.apellido || ''}">
+            </div>`;
     }
 
     if (entity === 'categoria') {
-        return `<input id="f-nombreGenero" placeholder="Categoría" value="${data?.nombreGenero || ''}">`;
+        return `
+            <div class="form-group">
+                <label>Género</label>
+                <input id="f-nombreGenero" placeholder="Categoría" value="${data?.nombreGenero || ''}">
+            </div>`;
     }
 
     if (entity === 'editorial') {
-        return `<input id="f-nombre" placeholder="Editorial" value="${data?.nombre || ''}">`;
+        return `
+            <div class="form-group">
+                <label>Nombre</label>
+                <input id="f-nombre" placeholder="Editorial" value="${data?.nombre || ''}">
+            </div>`;
     }
 
     if (entity === 'libros') {
+        const autorOptions = autoresList.map(a =>
+            `<option value="${a.idAutor}" ${data?.autor?.idAutor === a.idAutor ? 'selected' : ''}>
+                ${a.nombre} ${a.apellido}
+            </option>`
+        ).join('');
+
+        const categoriaOptions = categoriasList.map(c =>
+            `<option value="${c.idCategoria}" ${data?.categoria?.idCategoria === c.idCategoria ? 'selected' : ''}>
+                ${c.nombreGenero}
+            </option>`
+        ).join('');
+
+        const editorialOptions = editorialesList.map(e =>
+            `<option value="${e.idEditorial}" ${data?.editorial?.idEditorial === e.idEditorial ? 'selected' : ''}>
+                ${e.nombre}
+            </option>`
+        ).join('');
+
         return `
-            <input id="f-titulo"      placeholder="Título"      value="${data?.titulo || ''}">
-            <input id="f-anioEdicion" type="number"             value="${data?.anioEdicion || ''}">
-            <input id="f-image"       placeholder="Imagen"      value="${data?.image || ''}">
-            <input id="f-autor"       placeholder="ID Autor">
-            <input id="f-categoria"   placeholder="ID Categoría">
-            <input id="f-editorial"   placeholder="ID Editorial">`;
+            <div class="form-group">
+                <label>Título</label>
+                <input id="f-titulo" placeholder="Título" value="${data?.titulo || ''}">
+            </div>
+            <div class="form-group">
+                <label>ISBN</label>
+                <input id="f-isbn" placeholder="ISBN" value="${data?.isbn || ''}">
+            </div>
+            <div class="form-group">
+                <label>Precio</label>
+                <input id="f-precio" type="number" step="0.01" placeholder="Precio" value="${data?.precio || ''}">
+            </div>
+            <div class="form-group">
+                <label>Año de edición</label>
+                <input id="f-anioEdicion" type="number" placeholder="Año" value="${data?.anioEdicion || ''}">
+            </div>
+            <div class="form-group">
+                <label>URL Imagen</label>
+                <input id="f-image" placeholder="https://..." value="${data?.image || ''}">
+            </div>
+            <div class="form-group">
+                <label>Autor</label>
+                <select id="f-autor">${autorOptions}</select>
+            </div>
+            <div class="form-group">
+                <label>Categoría</label>
+                <select id="f-categoria">${categoriaOptions}</select>
+            </div>
+            <div class="form-group">
+                <label>Editorial</label>
+                <select id="f-editorial">${editorialOptions}</select>
+            </div>`;
     }
 }
-
 // ═══════════════════════════════════════════════════════
 // SAVE
 // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// SAVE — libros corregido
+// ═══════════════════════════════════════════
 async function saveModal() {
     let body = {};
     const isEdit = modalMode === 'edit';
@@ -338,12 +401,14 @@ async function saveModal() {
 
         if (modalEntity === 'libros') {
             body = {
-                titulo:      document.getElementById('f-titulo').value,
-                anioEdicion: parseInt(document.getElementById('f-anioEdicion').value),
-                image:       document.getElementById('f-image').value,
-                autor:       { idAutor:     parseInt(document.getElementById('f-autor').value) },
-                categoria:   { idCategoria: parseInt(document.getElementById('f-categoria').value) },
-                editorial:   { idEditorial: parseInt(document.getElementById('f-editorial').value) }
+                titulo:       document.getElementById('f-titulo').value,
+                isbn:         document.getElementById('f-isbn').value,
+                precio:       parseFloat(document.getElementById('f-precio').value),
+                anioEdicion:  parseInt(document.getElementById('f-anioEdicion').value),
+                image:        document.getElementById('f-image').value,
+                autorId:      parseInt(document.getElementById('f-autor').value),
+                categoriaId:  parseInt(document.getElementById('f-categoria').value),
+                editorialId:  parseInt(document.getElementById('f-editorial').value)
             };
             await apiFetch(isEdit ? `/libros/${editingId}` : '/libros', {
                 method: isEdit ? 'PUT' : 'POST',
@@ -358,7 +423,6 @@ async function saveModal() {
         alert('Error al guardar');
     }
 }
-
 // ═══════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════
