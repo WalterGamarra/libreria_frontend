@@ -3,47 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Librería</title>
+    <title>Librería — Panel Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
 
-  <aside class="sidebar">
+  <!-- OVERLAY para cerrar sidebar en móvil -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <!-- BOTÓN HAMBURGUESA (solo móvil) -->
+  <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">
+    <span></span><span></span><span></span>
+  </button>
+
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
       <span>Panel Admin</span>
       <h1>La <em>Librería</em></h1>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-section">General</div>
-      <div class="nav-item active" onclick="showView('dashboard', this)">
+      <div class="nav-item active" onclick="showView('dashboard', this); closeSidebar()">
         <span class="icon">◈</span> Dashboard
       </div>
       <div class="nav-section">Catálogo</div>
-      <div class="nav-item" onclick="showView('autores', this)">
+      <div class="nav-item" onclick="showView('autores', this); closeSidebar()">
         <span class="icon">✍</span> Autores
       </div>
-      <div class="nav-item" onclick="showView('categorias', this)">
+      <div class="nav-item" onclick="showView('categorias', this); closeSidebar()">
         <span class="icon">⊞</span> Categorías
       </div>
-      <div class="nav-item" onclick="showView('editoriales', this)">
+      <div class="nav-item" onclick="showView('editoriales', this); closeSidebar()">
         <span class="icon">◉</span> Editoriales
       </div>
-      <div class="nav-item" onclick="showView('libros', this)">
+      <div class="nav-item" onclick="showView('libros', this); closeSidebar()">
         <span class="icon">◎</span> Libros
       </div>
     </nav>
-
-    <!-- LOGOUT -->
     <div class="sidebar-logout" onclick="logout()">
       <span class="icon">⏻</span> Cerrar sesión
     </div>
-
     <div class="sidebar-footer">Tu Librería — API REST</div>
   </aside>
 
   <main class="main">
-
     <div class="topbar">
       <span class="topbar-title" id="topbar-title">Dashboard</span>
       <span class="topbar-api" id="topbar-user"></span>
@@ -76,34 +80,19 @@
           </div>
         </div>
 
-        <!-- TARJETA INVITACIÓN -->
-<div class="invite-card">
-  <div class="invite-card-text">
-    <h3>¡Sumá tu último libro leído!</h3>
-    <ol class="invite-steps">
-      <li>
-        <span class="order-badge">1</span>
-        Verificá si el <strong>autor</strong> ya existe en la sección Autores. Si no, crealo primero.
-      </li>
-      <li>
-        <span class="order-badge">2</span>
-        Verificá si la <strong>categoría</strong> existe en la sección Categorías. Si no, creala primero.
-      </li>
-      <li>
-        <span class="order-badge">3</span>
-        Buscá el <strong>ISBN</strong> del libro en Google — es el código único de 13 dígitos que identifica cada libro.
-      </li>
-      <li>
-        <span class="order-badge">4</span>
-        ¡Agregá el <strong>libro</strong> con todos los datos!
-      </li>
-    </ol>
-    <button class="btn btn-primary invite-btn" onclick="quickAddLibro()">
-      + Agregar mi libro
-    </button>
-  </div>
-  </div>
-</div>
+        <div class="invite-card">
+          <div class="invite-card-text">
+            <h3>¡Sumá tu último libro leído!</h3>
+            <ol class="invite-steps">
+              <li><span class="order-badge">1</span> Verificá si el <strong>autor</strong> ya existe. Si no, podés crearlo directamente desde el formulario del libro.</li>
+              <li><span class="order-badge">2</span> Lo mismo con la <strong>categoría</strong> y la <strong>editorial</strong>.</li>
+              <li><span class="order-badge">3</span> Buscá el libro por título — los datos se <strong>autocompletan</strong> automáticamente.</li>
+              <li><span class="order-badge">4</span> ¡Guardá y aparecerá en la tienda!</li>
+            </ol>
+            <button class="btn btn-primary invite-btn" onclick="quickAddLibro()">+ Agregar mi libro</button>
+          </div>
+        </div>
+      </div>
 
       <!-- AUTORES -->
       <div id="view-autores" class="view">
@@ -113,9 +102,7 @@
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr><th>ID</th><th>Nombre</th><th>Apellido</th><th>Acciones</th></tr>
-            </thead>
+            <thead><tr><th>ID</th><th>Nombre</th><th>Apellido</th><th>Acciones</th></tr></thead>
             <tbody id="tbody-autores"></tbody>
           </table>
         </div>
@@ -129,9 +116,7 @@
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr><th>ID</th><th>Género</th><th>Acciones</th></tr>
-            </thead>
+            <thead><tr><th>ID</th><th>Género</th><th>Acciones</th></tr></thead>
             <tbody id="tbody-categorias"></tbody>
           </table>
         </div>
@@ -145,9 +130,7 @@
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr>
-            </thead>
+            <thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead>
             <tbody id="tbody-editoriales"></tbody>
           </table>
         </div>
@@ -161,9 +144,7 @@
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr><th>ID</th><th>Título</th><th>Autor</th><th>Categoría</th><th>Editorial</th><th>Acciones</th></tr>
-            </thead>
+            <thead><tr><th>ID</th><th>Título</th><th>Autor</th><th>Categoría</th><th>Editorial</th><th>Acciones</th></tr></thead>
             <tbody id="tbody-libros"></tbody>
           </table>
         </div>
@@ -182,12 +163,23 @@
       <div class="modal-body" id="modal-body"></div>
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
-        <button class="btn btn-primary" id="modal-save-btn" onclick="saveModal()">Guardar</button>
+        <button class="btn btn-primary" onclick="saveModal()">Guardar</button>
       </div>
     </div>
   </div>
 
   <div class="toast-container" id="toast-container"></div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebar-overlay').classList.toggle('open');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('open');
+    }
+  </script>
 
   <script src="js/auth.js"></script>
   <script src="js/admin.js"></script>
