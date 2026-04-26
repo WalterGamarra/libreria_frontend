@@ -613,3 +613,238 @@ footer a:hover { color: rgba(255,255,255,0.6); }
     max-width: 200px;
   }
 }
+
+/* ═══════════════════════════════════════
+   AGREGAR AL FINAL DE tienda.css
+═══════════════════════════════════════ */
+
+.demo-banner {
+  background: var(--dark);
+  padding: 40px 24px;
+}
+
+.demo-banner-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+
+.demo-text h3 {
+  font-family: 'Playfair Display', serif;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.demo-text p {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 540px;
+}
+
+.demo-text strong {
+  color: var(--accent);
+}
+
+.demo-credentials {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  min-width: 220px;
+}
+
+.demo-cred-label {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.demo-cred-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.demo-cred-key {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.demo-cred-row code {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: white;
+  background: rgba(255,255,255,0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.demo-btn {
+  display: block;
+  margin-top: 16px;
+  background: var(--accent);
+  color: var(--dark);
+  text-decoration: none;
+  text-align: center;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.demo-btn:hover { opacity: 0.85; }
+
+@media (max-width: 700px) {
+  .demo-banner-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ═══════════════════════════════════════
+   AGREGAR AL FINAL DE login.css
+═══════════════════════════════════════ */
+
+.demo-box {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 1.5rem;
+}
+
+.demo-box-title {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 10px;
+}
+
+.demo-box-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.demo-box-row span {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+}
+
+.demo-box-row code {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.demo-box-hint {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+
+/* ═══════════════════════════════════════
+   AGREGAR AL FINAL DE admin.css
+═══════════════════════════════════════ */
+
+/* Logout en sidebar */
+.sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #888;
+  border-top: 1px solid #333;
+  transition: all 0.15s;
+  margin-top: auto;
+}
+
+.sidebar-logout:hover {
+  color: #ff6b6b;
+  background: rgba(255,107,107,0.08);
+}
+
+/* Tarjeta invitación en dashboard */
+.invite-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.invite-card-text h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.invite-card-text p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.invite-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.invite-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.invite-steps li strong {
+  color: var(--text);
+}
+
+.invite-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* Modal scroll para libros */
+.modal {
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body {
+  overflow-y: auto;
+  flex: 1;
+}

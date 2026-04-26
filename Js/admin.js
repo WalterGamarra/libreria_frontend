@@ -269,12 +269,7 @@ function closeModal() {
     document.getElementById('modal-overlay').classList.remove('open');
 }
 
-// ═══════════════════════════════════════════════════════
-// FORM BUILDER
-// ═══════════════════════════════════════════════════════
-// ═══════════════════════════════════════════
-// FORM BUILDER — libros corregido
-// ═══════════════════════════════════════════
+
 function buildForm(entity, data) {
     if (entity === 'autor') {
         return `
@@ -358,12 +353,8 @@ function buildForm(entity, data) {
             </div>`;
     }
 }
-// ═══════════════════════════════════════════════════════
 // SAVE
-// ═══════════════════════════════════════════════════════
-// ═══════════════════════════════════════════
-// SAVE — libros corregido
-// ═══════════════════════════════════════════
+
 async function saveModal() {
     let body = {};
     const isEdit = modalMode === 'edit';
@@ -427,3 +418,19 @@ async function saveModal() {
 // INIT
 // ═══════════════════════════════════════════════════════
 loadDashboard();
+
+// Carga autores/categorías/editoriales y abre modal de nuevo libro
+async function quickAddLibro() {
+    [autoresList, categoriasList, editorialesList] = await Promise.all([
+        apiFetch('/autor'),
+        apiFetch('/categoria'),
+        apiFetch('/editorial')
+    ]);
+    openModal('libros');
+}
+
+function logout() {
+  localStorage.removeItem('jwt_token');
+  localStorage.removeItem('jwt_username');
+  window.location.href = 'index.html';
+}

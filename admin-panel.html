@@ -1,216 +1,195 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Librería — Panel Administrador</title>
-
-    <!-- Google Fonts: tipografías del panel -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-
-    <!-- Archivo CSS externo: todos los estilos visuales del panel -->
+    <title>Librería</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin.css">
 </head>
-
 <body>
 
-    <!-- ═══════════════════════════════════════════
-     SIDEBAR — Barra lateral de navegación
-     Cada nav-item llama a showView('nombre', this)
-     que está definido en admin.js
-════════════════════════════════════════════ -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <span>Panel Admin</span>
-            <h1>La <em>Librería</em></h1>
-        </div>
-        <nav class="sidebar-nav">
-            <div class="nav-section">General</div>
-            <div class="nav-item active" onclick="showView('dashboard', this)">
-                <span class="icon">◈</span> Dashboard
-            </div>
-            <div class="nav-section">Catálogo</div>
-            <div class="nav-item" onclick="showView('autores', this)">
-                <span class="icon">✍</span> Autores
-            </div>
-            <div class="nav-item" onclick="showView('categorias', this)">
-                <span class="icon">⊞</span> Categorías
-            </div>
-            <div class="nav-item" onclick="showView('editoriales', this)">
-                <span class="icon">◉</span> Editoriales
-            </div>
-            <div class="nav-item" onclick="showView('libros', this)">
-                <span class="icon">◎</span> Libros
-            </div>
-        </nav>
-        <div class="sidebar-footer">localhost:8080</div>
-    </aside>
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>Panel Admin</span>
+      <h1>La <em>Librería</em></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">General</div>
+      <div class="nav-item active" onclick="showView('dashboard', this)">
+        <span class="icon">◈</span> Dashboard
+      </div>
+      <div class="nav-section">Catálogo</div>
+      <div class="nav-item" onclick="showView('autores', this)">
+        <span class="icon">✍</span> Autores
+      </div>
+      <div class="nav-item" onclick="showView('categorias', this)">
+        <span class="icon">⊞</span> Categorías
+      </div>
+      <div class="nav-item" onclick="showView('editoriales', this)">
+        <span class="icon">◉</span> Editoriales
+      </div>
+      <div class="nav-item" onclick="showView('libros', this)">
+        <span class="icon">◎</span> Libros
+      </div>
+    </nav>
 
-    <!-- ═══════════════════════════════════════════
-     MAIN — Área principal de contenido
-════════════════════════════════════════════ -->
-    <main class="main">
-
-        <div class="topbar">
-            <span class="topbar-title" id="topbar-title">Dashboard</span>
-            <span class="topbar-api">API: http://localhost:8080/api/v1</span>
-        </div>
-
-        <div class="content">
-
-            <!-- DASHBOARD: id="stat-*" son llenados por admin.js -->
-            <div id="view-dashboard" class="view active">
-                <div class="dashboard-grid">
-                    <div class="stat-card">
-                        <div class="label">Libros</div>
-                        <div class="value" id="stat-libros">—</div>
-                        <span class="icon-big">◎</span>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Autores</div>
-                        <div class="value" id="stat-autores">—</div>
-                        <span class="icon-big">✍</span>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Categorías</div>
-                        <div class="value" id="stat-categorias">—</div>
-                        <span class="icon-big">⊞</span>
-                    </div>
-                    <div class="stat-card">
-                        <div class="label">Editoriales</div>
-                        <div class="value" id="stat-editoriales">—</div>
-                        <span class="icon-big">◉</span>
-                    </div>
-                </div>
-                <div class="dashboard-note">
-                    <strong>Panel de administración — Librería</strong><br>
-                    El orden recomendado para cargar datos es:
-                    <ol class="order-list">
-                        <li><span class="order-badge">1</span> Autores — sin dependencias</li>
-                        <li><span class="order-badge">2</span> Categorías — sin dependencias</li>
-                        <li><span class="order-badge">3</span> Editoriales — sin dependencias</li>
-                        <li><span class="order-badge">4</span> Libros — requiere los tres anteriores</li>
-                    </ol>
-                </div>
-            </div>
-
-            <!-- AUTORES: tbody-autores es llenado por admin.js -->
-            <div id="view-autores" class="view">
-                <div class="section-header">
-                    <h2>Autores</h2>
-                    <button class="btn btn-primary" onclick="openModal('autor')">+ Nuevo autor</button>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-autores"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- CATEGORÍAS: tbody-categorias es llenado por admin.js -->
-            <div id="view-categorias" class="view">
-                <div class="section-header">
-                    <h2>Categorías</h2>
-                    <button class="btn btn-primary" onclick="openModal('categoria')">+ Nueva categoría</button>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Género</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-categorias"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- EDITORIALES: tbody-editoriales es llenado por admin.js -->
-            <div id="view-editoriales" class="view">
-                <div class="section-header">
-                    <h2>Editoriales</h2>
-                    <button class="btn btn-primary" onclick="openModal('editorial')">+ Nueva editorial</button>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-editoriales"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- LIBROS: tbody-libros es llenado por admin.js -->
-            <div id="view-libros" class="view">
-                <div class="section-header">
-                    <h2>Libros</h2>
-                    <button class="btn btn-primary" onclick="openModal('libros')">+ Nuevo libro</button>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Autor</th>
-                                <th>Categoría</th>
-                                <th>Editorial</th>
-
-                                <!-- <th>Año</th> -->
-
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-libros"></tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- MODAL: modal-title y modal-body son llenados por admin.js -->
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="modal-title">Nuevo registro</h3>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
-            <div class="modal-body" id="modal-body"></div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
-                <button class="btn btn-primary" id="modal-save-btn" onclick="saveModal()">Guardar</button>
-            </div>
-        </div>
+    <!-- LOGOUT -->
+    <div class="sidebar-logout" onclick="logout()">
+      <span class="icon">⏻</span> Cerrar sesión
     </div>
 
-    <!-- TOASTS: creados y destruidos por admin.js -->
-    <div class="toast-container" id="toast-container"></div>
+    <div class="sidebar-footer">Tu Librería — API REST</div>
+  </aside>
 
-        <script src="js/auth.js"></script>
+  <main class="main">
 
-    <!-- JS al final del body para que el HTML ya esté cargado cuando se ejecute -->
-    <script src="js/admin.js"></script>
+    <div class="topbar">
+      <span class="topbar-title" id="topbar-title">Dashboard</span>
+      <span class="topbar-api" id="topbar-user"></span>
+    </div>
 
+    <div class="content">
 
+      <!-- DASHBOARD -->
+      <div id="view-dashboard" class="view active">
+        <div class="dashboard-grid">
+          <div class="stat-card">
+            <div class="label">Libros</div>
+            <div class="value" id="stat-libros">—</div>
+            <span class="icon-big">◎</span>
+          </div>
+          <div class="stat-card">
+            <div class="label">Autores</div>
+            <div class="value" id="stat-autores">—</div>
+            <span class="icon-big">✍</span>
+          </div>
+          <div class="stat-card">
+            <div class="label">Categorías</div>
+            <div class="value" id="stat-categorias">—</div>
+            <span class="icon-big">⊞</span>
+          </div>
+          <div class="stat-card">
+            <div class="label">Editoriales</div>
+            <div class="value" id="stat-editoriales">—</div>
+            <span class="icon-big">◉</span>
+          </div>
+        </div>
+
+        <!-- TARJETA INVITACIÓN -->
+<div class="invite-card">
+  <div class="invite-card-text">
+    <h3>¡Sumá tu último libro leído!</h3>
+    <ol class="invite-steps">
+      <li>
+        <span class="order-badge">1</span>
+        Verificá si el <strong>autor</strong> ya existe en la sección Autores. Si no, crealo primero.
+      </li>
+      <li>
+        <span class="order-badge">2</span>
+        Verificá si la <strong>categoría</strong> existe en la sección Categorías. Si no, creala primero.
+      </li>
+      <li>
+        <span class="order-badge">3</span>
+        Buscá el <strong>ISBN</strong> del libro en Google — es el código único de 13 dígitos que identifica cada libro.
+      </li>
+      <li>
+        <span class="order-badge">4</span>
+        ¡Agregá el <strong>libro</strong> con todos los datos!
+      </li>
+    </ol>
+    <button class="btn btn-primary invite-btn" onclick="quickAddLibro()">
+      + Agregar mi libro
+    </button>
+  </div>
+  </div>
+</div>
+
+      <!-- AUTORES -->
+      <div id="view-autores" class="view">
+        <div class="section-header">
+          <h2>Autores</h2>
+          <button class="btn btn-primary" onclick="openModal('autor')">+ Nuevo autor</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Nombre</th><th>Apellido</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tbody-autores"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CATEGORÍAS -->
+      <div id="view-categorias" class="view">
+        <div class="section-header">
+          <h2>Categorías</h2>
+          <button class="btn btn-primary" onclick="openModal('categoria')">+ Nueva categoría</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Género</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tbody-categorias"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EDITORIALES -->
+      <div id="view-editoriales" class="view">
+        <div class="section-header">
+          <h2>Editoriales</h2>
+          <button class="btn btn-primary" onclick="openModal('editorial')">+ Nueva editorial</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tbody-editoriales"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- LIBROS -->
+      <div id="view-libros" class="view">
+        <div class="section-header">
+          <h2>Libros</h2>
+          <button class="btn btn-primary" onclick="openModal('libros')">+ Nuevo libro</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Título</th><th>Autor</th><th>Categoría</th><th>Editorial</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tbody-libros"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Nuevo registro</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+        <button class="btn btn-primary" id="modal-save-btn" onclick="saveModal()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
 </body>
-
 </html>

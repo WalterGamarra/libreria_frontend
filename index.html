@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Librería Online</title>
+  <title>Tu Librería</title>
   <link rel="stylesheet" href="css/tienda.css">
 </head>
 <body>
@@ -20,36 +20,30 @@
       </span>
       <button class="drawer-close" id="drawer-close">✕</button>
     </div>
-
     <div class="drawer-section">
       <h3>Autores</h3>
       <div id="filtros-autores"></div>
     </div>
-
     <div class="drawer-section">
       <h3>Géneros</h3>
       <div id="filtros-categorias"></div>
     </div>
-
     <div class="drawer-section">
       <h3>Editoriales</h3>
       <div id="filtros-editoriales"></div>
     </div>
   </div>
-  
-  <!-- HEADER -->
 
+  <!-- HEADER -->
   <header>
     <div class="header-inner">
       <button class="hamburger" id="hamburger" aria-label="Menú">
         <span></span><span></span><span></span>
       </button>
-
       <span class="logo">
-  <span class="logo-tu">TU</span>
-  <span class="logo-nombre">Librería</span>
-</span>
-
+        <span class="logo-tu">TU</span>
+        <span class="logo-nombre">Librería</span>
+      </span>
       <div class="search-bar">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -70,8 +64,6 @@
 
   <!-- MAIN -->
   <main>
-
-    <!-- LISTADO -->
     <div id="listado-wrapper">
       <div class="results-bar">
         <span class="results-count" id="results-count"></span>
@@ -80,16 +72,32 @@
         <section id="listado-libros" class="grid"></section>
       </div>
     </div>
-
-    <!-- DETALLE -->
     <section id="detalle-libro" class="hidden"></section>
-
   </main>
+
+  <!-- BANNER DEMO -->
+  <div class="demo-banner">
+    <div class="demo-banner-inner">
+      <div class="demo-text">
+        <h3>¿Querés sumar tu último libro leído?</h3>
+        <p>
+          Este es un proyecto de desarrollo con API REST funcional. Podés ingresar al panel
+          y agregar tu último libro leido al catálogo. 
+        </p>
+      </div>
+      <div class="demo-credentials">
+        <div class="demo-cred-label">Acceso de prueba</div>
+        <div class="demo-cred-row">
+          
+        </div>
+        <a href="login.html" class="demo-btn">Ingresar al panel →</a>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
-    <p class="footer-copy">© 2026 <span>La Librería</span>. Todos los derechos reservados.</p>
-    <a href="login.html">Acceso administrativo</a>
+    <p class="footer-copy">© 2026 <span>Tu Librería</span>. Todos los derechos reservados.</p>
   </footer>
 
   <script src="js/tienda.js"></script>

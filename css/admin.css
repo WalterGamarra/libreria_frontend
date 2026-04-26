@@ -97,6 +97,23 @@ body {
   flex: 1;
 }
 
+.sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #888;
+  border-top: 1px solid #333;
+  transition: all 0.15s;
+}
+
+.sidebar-logout:hover {
+  color: #ff6b6b;
+  background: rgba(255,107,107,0.08);
+}
+
 /* Etiquetas de sección dentro del nav (ej: "CATÁLOGO") */
 .nav-section {
   padding: 8px 20px 4px;
@@ -359,6 +376,12 @@ body {
   font-size: 12px;
 }
 
+.invite-btn { 
+  margin-top: 20px; /* ← aumentá este valor */
+}
+
+
+
 /* ═══════════════════════════════════════════════════════
    TABLA
    Contenedor con borde redondeado + tabla dentro
@@ -438,12 +461,7 @@ tbody td {
   margin-bottom: 10px;
 }
 
-/* ═══════════════════════════════════════════════════════
-   MODAL
-   Ventana emergente para crear/editar registros.
-   .modal-overlay cubre toda la pantalla con fondo oscuro.
-   .open la hace visible (toggle desde admin.js)
-═══════════════════════════════════════════════════════ */
+
 .modal-overlay {
   display: none;
   /* oculto por defecto */
