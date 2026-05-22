@@ -238,7 +238,7 @@ async function buscarEnGoogleBooks() {
     resultsEl.innerHTML = '<p class="gb-loading">Buscando...</p>';
 
     try {
-        const res = await fetch(`${GOOGLE_BOOKS_API}?q=${encodeURIComponent(query)}&maxResults=5&langRestrict=es`);
+        const res = await fetch(`${GOOGLE_BOOKS_API}?q=${encodeURIComponent(query)}&maxResults=8`);
         const data = await res.json();
 
         if (!data.items?.length) {
