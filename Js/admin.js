@@ -230,7 +230,7 @@ async function editLibros(id) {
 // ═══════════════════════════════════════════════════════
 // GOOGLE BOOKS — búsqueda por título
 // ═══════════════════════════════════════════════════════
-async function buscarEnGoogleBooks() {
+/*async function buscarEnGoogleBooks() {
     const query = document.getElementById('gb-search').value.trim();
     if (!query) return;
 
@@ -259,6 +259,47 @@ async function buscarEnGoogleBooks() {
                     ${thumb ? `<img src="${thumb}" alt="${escStr(info.title)}">` : '<div class="gb-no-img">📚</div>'}
                     <div class="gb-item-info">
                         <div class="gb-item-title">${info.title}</div>
+                        <div class="gb-item-meta">${autor}${anio ? ' · ' + anio : ''}</div>
+                        ${isbn ? `<div class="gb-item-isbn">ISBN: ${isbn}</div>` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    } catch (e) {
+        resultsEl.innerHTML = '<p class="gb-empty">Error al buscar. Intentá de nuevo.</p>';
+    }
+}*/
+
+async function buscarEnGoogleBooks() {
+    const query = document.getElementById('gb-search').value.trim();
+    if (!query) return;
+
+    const resultsEl = document.getElementById('gb-results');
+    resultsEl.innerHTML = '<p class="gb-loading">Buscando...</p>';
+
+    try {
+        const res = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(query)}&limit=8`);
+        const data = await res.json();
+
+        if (!data.docs?.length) {
+            resultsEl.innerHTML = '<p class="gb-empty">Sin resultados. Probá con otro título.</p>';
+            return;
+        }
+
+        resultsEl.innerHTML = data.docs.map(book => {
+            const titulo = book.title || '';
+            const autor = book.author_name?.[0] || '';
+            const anio = book.first_publish_year?.toString() || '';
+            const isbn = book.isbn?.[0] || '';
+            const editorial = book.publisher?.[0] || '';
+            const coverId = book.cover_i;
+            const thumb = coverId ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg` : '';
+
+            return `
+                <div class="gb-item" onclick="autocompletar('${escStr(titulo)}', '${escStr(isbn)}', '${escStr(autor)}', '${escStr(anio)}', '${escStr(thumb)}', '${escStr(editorial)}')">
+                    ${thumb ? `<img src="${thumb}" alt="${escStr(titulo)}">` : '<div class="gb-no-img">📚</div>'}
+                    <div class="gb-item-info">
+                        <div class="gb-item-title">${titulo}</div>
                         <div class="gb-item-meta">${autor}${anio ? ' · ' + anio : ''}</div>
                         ${isbn ? `<div class="gb-item-isbn">ISBN: ${isbn}</div>` : ''}
                     </div>
